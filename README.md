@@ -25,11 +25,11 @@
 #### Properties 配置文件 
 
 ```java
-Config config = ConfigLoader.load("app.conf", PropertiesAdapter.class);
+Config config = ConfigLoader.load("app.conf", PropConfigAdapter.class);
 
-String name = config.get("name");
+String name = config.getString("name");
 
-int age = config.getAsInt("age");
+int age = config.getInt("age");
 ```
 
 #### Xml 配置文件 

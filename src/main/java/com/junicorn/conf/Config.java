@@ -2,14 +2,14 @@ package com.junicorn.conf;
 
 public interface Config {
 
-	String get(String key);
+	String getString(String key);
 	
-	Integer getAsInt(String key);
+	Integer getInt(String key);
 	
-	Long getAsLong(String key);
+	Long getLong(String key);
 	
-	Boolean getAsBool(String key);
+	Boolean getBool(String key);
 	
-	Double getAsDouble(String key);
+	Double getDouble(String key);
 	
 }
