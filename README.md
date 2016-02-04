@@ -25,7 +25,7 @@
 #### Properties 配置文件 
 
 ```java
-Config config = Config.load("app.conf", PropertiesAdapter.class);
+Config config = ConfigLoader.load("app.conf", PropertiesAdapter.class);
 
 String name = config.get("name");
 
