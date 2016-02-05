@@ -8,7 +8,7 @@ public interface Config {
 	
 	Long getLong(String key);
 	
-	Boolean getBool(String key);
+	Boolean getBoolean(String key);
 	
 	Double getDouble(String key);
 	

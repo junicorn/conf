@@ -21,33 +21,33 @@ public abstract class ConfigAdapter implements Config {
 	}
 
 	public Integer getInt(String key) {
-		Object object = configMap.get(key);
-		if(null != object){
-			return (Integer) object;
+		String value = this.getString(key);
+		if(null != value){
+			return Integer.parseInt(value);
 		}
 		return null;
 	}
 
 	public Long getLong(String key) {
-		Object object = configMap.get(key);
-		if(null != object){
-			return (Long) object;
+		String value = this.getString(key);
+		if(null != value){
+			return Long.parseLong(value);
 		}
 		return null;
 	}
 
-	public Boolean getBool(String key) {
-		Object object = configMap.get(key);
-		if(null != object){
-			return (Boolean) object;
+	public Boolean getBoolean(String key) {
+		String value = this.getString(key);
+		if(null != value){
+			return Boolean.parseBoolean(value);
 		}
 		return null;
 	}
 
 	public Double getDouble(String key) {
-		Object object = configMap.get(key);
-		if(null != object){
-			return (Double) object;
+		String value = this.getString(key);
+		if(null != value){
+			return Double.parseDouble(value);
 		}
 		return null;
 	}
