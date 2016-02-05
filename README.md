@@ -25,7 +25,7 @@
 #### Properties 配置文件 
 
 ```java
-Config config = ConfigLoader.load("app.conf", PropConfigAdapter.class);
+Config config = ConfigLoader.load("app.conf");
 
 String name = config.getString("name");
 
@@ -35,7 +35,13 @@ int age = config.getInt("age");
 #### Xml 配置文件 
 
 ```java
-...
+Config config = ConfigLoader.load("app.conf");
+```
+
+#### Ini 配置文件 
+
+```java
+Config config = ConfigLoader.load("app.conf");
 ```
 
 #### Yaml 配置文件 
