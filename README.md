@@ -59,11 +59,8 @@ AppConf appconf = config.get(AppConf.class);
 
 ```java
 public interface AppConf {
-
 	String name();
-	
 	int age();
-	
 }
 ```
 
