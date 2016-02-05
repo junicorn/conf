@@ -12,4 +12,5 @@ public interface Config {
 	
 	Double getDouble(String key);
 	
+	<T> T get(Class<T> t);
 }

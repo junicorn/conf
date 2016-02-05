@@ -1,5 +1,6 @@
 package com.junicorn.conf.util;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -44,6 +45,16 @@ public class IOUtils {
 			count += n;
 		}
 		return count;
+	}
+
+	public static void closeQuietly(Closeable closeable) {
+		if(null != closeable){
+			try {
+				closeable.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 }
