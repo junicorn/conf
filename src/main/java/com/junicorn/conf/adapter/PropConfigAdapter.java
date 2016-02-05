@@ -12,6 +12,10 @@ import com.junicorn.conf.Config;
 import com.junicorn.conf.exception.ConfigAdapterException;
 import com.junicorn.conf.util.IOUtils;
 
+/**
+ * 解析Properties配置文件
+ *
+ */
 public class PropConfigAdapter extends ConfigAdapter {
 	
 	@Override
