@@ -7,7 +7,7 @@ import com.junicorn.conf.exception.LoadException;
 import com.junicorn.conf.util.ClassUtils;
 
 /**
- * 配置加载器
+ * 配置加载器，用于加载配置文件
  */
 public class ConfigLoader {
 	

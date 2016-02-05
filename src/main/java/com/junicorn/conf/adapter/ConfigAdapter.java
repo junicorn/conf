@@ -1,5 +1,8 @@
 package com.junicorn.conf.adapter;
 
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,9 +10,13 @@ import com.junicorn.conf.Config;
 
 /**
  * 配置适配器，用于适配各种配置文件，解析成Config接口 
+ * 实现类需要完成的就是向configMap内赋值
  */
 public abstract class ConfigAdapter implements Config {
-
+	
+	/**
+	 * 存储配置数据
+	 */
 	protected Map<String, Object> configMap = new HashMap<String, Object>();
 	
 	public String getString(String key) {
@@ -52,7 +59,47 @@ public abstract class ConfigAdapter implements Config {
 		return null;
 	}
 	
-	public abstract Config read(String conf);
+	public <T> T get(Class<T> t) {
+		try {
+			@SuppressWarnings("unchecked")
+			T tobj = (T) Proxy.newProxyInstance(t.getClassLoader(), 
+					new Class[] { t }, new InvocationHandler() {
+						@Override
+						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+							
+							String method_name = method.getName();
+							Class<?> returnClazz = method.getReturnType();
+							
+							if(returnClazz == String.class){
+								return ConfigAdapter.this.getString(method_name);
+							}
+							
+							if (returnClazz == Integer.class || returnClazz == int.class) {
+								return ConfigAdapter.this.getInt(method_name);
+							}
+							
+							if(returnClazz == Long.class || returnClazz == long.class){
+								return ConfigAdapter.this.getLong(method_name);
+							}
+							
+							if(returnClazz == Double.class || returnClazz == double.class){
+								return ConfigAdapter.this.getDouble(method_name);
+							}
+							
+							if(returnClazz == Boolean.class || returnClazz == boolean.class){
+								return ConfigAdapter.this.getBoolean(method_name);
+							}
+							
+							return null;
+						}
+					});
+			return tobj;
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
+	public abstract Config read(String conf);
 	
 }

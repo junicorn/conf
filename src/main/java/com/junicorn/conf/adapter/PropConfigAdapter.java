@@ -2,9 +2,6 @@ package com.junicorn.conf.adapter;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -60,46 +57,4 @@ public class PropConfigAdapter extends ConfigAdapter {
 		return null;
 	}
 	
-	@Override
-	public <T> T get(Class<T> t) {
-		try {
-			@SuppressWarnings("unchecked")
-			T tobj = (T) Proxy.newProxyInstance(t.getClassLoader(), 
-					new Class[] { t }, new InvocationHandler() {
-						@Override
-						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-							
-							String method_name = method.getName();
-							Class<?> returnClazz = method.getReturnType();
-							
-							if(returnClazz == String.class){
-								return PropConfigAdapter.this.getString(method_name);
-							}
-							
-							if (returnClazz == Integer.class || returnClazz == int.class) {
-								return PropConfigAdapter.this.getInt(method_name);
-							}
-							
-							if(returnClazz == Long.class || returnClazz == long.class){
-								return PropConfigAdapter.this.getLong(method_name);
-							}
-							
-							if(returnClazz == Double.class || returnClazz == double.class){
-								return PropConfigAdapter.this.getDouble(method_name);
-							}
-							
-							if(returnClazz == Boolean.class || returnClazz == boolean.class){
-								return PropConfigAdapter.this.getBoolean(method_name);
-							}
-							
-							return null;
-						}
-					});
-			return tobj;
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
 }

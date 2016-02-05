@@ -1,5 +1,8 @@
 package com.junicorn.conf.exception;
 
+/**
+ * 配置加载异常
+ */
 public class LoadException extends RuntimeException {
 
 	private static final long serialVersionUID = 713951618562461059L;
