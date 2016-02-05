@@ -2,7 +2,7 @@
 
 [![Build Status](https://img.shields.io/travis/junicorn/conf.svg?style=flat-square)](https://travis-ci.org/junicorn/conf)
 
-这是一个解决Java开发中读取配置文件每次都要重写的困惑，待开发。
+这是一个解决Java开发中读取配置文件每次都要重写的困惑。
 
 ## 特性
 
@@ -25,11 +25,14 @@
 #### Properties 配置文件 
 
 ```java
-Config config = ConfigLoader.load("app.conf");
-
+Config config = ConfigLoader.load("appconf.properties");
+		
 String name = config.getString("name");
+System.out.println("name = " + name);
 
-int age = config.getInt("age");
+AppConf appConf = config.get(AppConf.class);
+System.out.println(appConf.name());
+System.out.println(appConf.age());
 ```
 
 #### Xml 配置文件 
@@ -66,5 +69,5 @@ public interface AppConf {
 
 #### 自定义配置文件
 
-
+`待规划`
 
