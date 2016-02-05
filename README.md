@@ -50,5 +50,24 @@ Config config = ConfigLoader.load("app.conf");
 ...
 ```
 
+#### 解析配置文件到接口
+
+```java
+Config config = ConfigLoader.load("app.conf");
+AppConf appconf = config.get(AppConf.class);
+```
+
+```java
+public interface AppConf {
+
+	String name();
+	
+	int age();
+	
+}
+```
+
+#### 自定义配置文件
+
 
 
