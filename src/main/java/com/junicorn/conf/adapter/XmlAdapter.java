@@ -46,6 +46,12 @@ public class XmlAdapter extends ConfigAdapter {
      * @return
      */
     public Map<String, Object> convertToMap(XmlParserUtils.Xml xml) {
+        Map<String, Object> self = new HashMap<String, Object>();
+
+        if (onlyOwnText(xml)) {
+            self.put(xml.getName(), xml.getText());
+            return self;
+        }
         Map<String, Object> attrMap = new HashMap<String, Object>();
         if (xml.getText() != null && !xml.getText().trim().isEmpty()) {
             attrMap.put("text", xml.getText());
@@ -74,9 +80,25 @@ public class XmlAdapter extends ConfigAdapter {
                 }
             }
         }
-        Map<String, Object> self = new HashMap<String, Object>();
         self.put(xml.getName(), attrMap);
         return self;
+    }
+
+    private boolean onlyOwnText(XmlParserUtils.Xml xml) {
+        if (xml.getAttributes() == null && (xml.getChildren() == null || xml.getChildren().isEmpty())) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean onlyOwnChildren(XmlParserUtils.Xml xml) {
+        if (xml.getAttributes() != null) {
+            return false;
+        }
+        if (xml.getText() != null && !xml.getText().isEmpty()) {
+            return false;
+        }
+        return true;
     }
 
 

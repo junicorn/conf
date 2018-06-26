@@ -14,7 +14,10 @@ public class ReadXmlTest {
         Config config = ConfigLoader.load("config.xml", XmlAdapter.class).getConfig("dependencies");
         System.out.println(config);
         XmlConf conf = config.get(XmlConf.class);
-        System.out.println(conf);
-
+        String groupId = conf.getDependency()[0].getGroupId();
+        System.out.println(groupId);
+        Config config1 = ConfigLoader.load("appconf.xml", XmlAdapter.class).getConfig("config");
+        XmlAppConf appConf = config1.get(XmlAppConf.class);
+        System.out.println(appConf);
     }
 }

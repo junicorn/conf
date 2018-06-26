@@ -13,7 +13,7 @@
 ## 状态
 
 - [已完成] 解析Properties配置文件
-- [待完成] 解析Xml配置文件
+- [已完成] 解析Xml配置文件
 - [待完成] 解析Ini配置文件
 - [待完成] 解析Yaml配置文件
 
@@ -45,7 +45,14 @@ System.out.println(appConf.age());
 #### Xml 配置文件 
 
 ```java
-Config config = ConfigLoader.load("app.conf");
+Config config = ConfigLoader.load("config.xml", XmlAdapter.class).getConfig("dependencies");
+        System.out.println(config);
+        XmlConf conf = config.get(XmlConf.class);
+        String groupId = conf.getDependency()[0].getGroupId();
+        System.out.println(groupId);
+        Config config1 = ConfigLoader.load("appconf.xml", XmlAdapter.class).getConfig("config");
+        XmlAppConf appConf = config1.get(XmlAppConf.class);
+        System.out.println(appConf);
 ```
 
 #### Ini 配置文件 

@@ -2,12 +2,14 @@ package com.junicorn.conf;
 
 import com.junicorn.conf.util.MapUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
- * @Author: Liu Yuefei
- * @Date: Created in 2018/6/24 21:09
- * @Description:
+ * @author  Liu Yuefei
+ * @date   Created in 2018/6/24 21:09
+ * @description
  */
 public class MapUtilsTest {
 
@@ -17,8 +19,10 @@ public class MapUtilsTest {
         map.put("age", "18");
         HashMap<String, Object> dog = new HashMap<String, Object>();
         dog.put("nickName", "wangcai");
-        dog.put("age", 3);
-        map.put("dog", dog);
+        dog.put("age", null);
+        ArrayList<Object> objects = new ArrayList<Object>();
+        objects.add(dog);
+        map.put("dog", objects);
         Person person = MapUtils.mapToBean(map, Person.class);
         System.out.println(person);
     }
@@ -26,14 +30,14 @@ public class MapUtilsTest {
     public static class Person {
         private Integer age;
         private String name;
-        private Dog dog;
+        private Dog[] dog;
 
         @Override
         public String toString() {
             return "Person{" +
                     "age=" + age +
                     ", name='" + name + '\'' +
-                    ", dog=" + dog +
+                    ", dog=" + Arrays.toString(dog) +
                     '}';
         }
     }

@@ -13,9 +13,9 @@ import java.io.InputStream;
 import java.util.*;
 
 /**
- * @Author: Liu Yuefei
- * @Date: Created in 2018/6/24 11:37
- * @Description: 采用sax解析xml
+ * @author  Liu Yuefei
+ * @date   Created in 2018/6/24 11:37
+ * @description    采用sax解析xml
  */
 public class XmlParserUtils extends DefaultHandler {
 
