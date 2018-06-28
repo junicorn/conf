@@ -1,14 +1,23 @@
 package com.junicorn.conf;
 
-import com.junicorn.conf.util.Xml;
+import com.junicorn.conf.adapter.ConfigAdapter;
+import com.junicorn.conf.adapter.XmlAdapter;
+import com.junicorn.conf.loader.ConfigLoader;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 public class ReadXmlTest {
 
-	public static void main(String[] args) {
-		Xml xml = new Xml("/config.xml");
-		String name = xml.attrValue("//config/item[@key='name']");
-		String version = xml.attrValue("//config/item[@key='version']");
-		System.out.println(name);
-		System.out.println(version);
-	}
+    public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException, InvocationTargetException, IllegalAccessException {
+        ConfigAdapter config = (ConfigAdapter) ConfigLoader.load("config.xml", XmlAdapter.class).getConfig("dependencies");
+        XmlConf xmlConf = config.get(XmlConf.class);
+        for (XmlConf.Depend depend : xmlConf.getDependency()) {
+            System.out.println(depend.toString());
+        }
+        System.out.println(xmlConf);
+
+    }
 }

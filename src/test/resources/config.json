@@ -1,0 +1,24 @@
+{
+    "dependencies": {
+        "dependency": [
+            {
+                "groupId": "junit",
+                "artifactId": "junit",
+                "version": "4.12",
+                "scope": "test"
+            },
+            {
+                "groupId": "dom4j",
+                "artifactId": "dom4j",
+                "version": "1.6.1",
+                "scope": "provided"
+            },
+            {
+                "groupId": "jaxen",
+                "artifactId": "jaxen",
+                "version": "1.1.6",
+                "scope": "provided"
+            }
+        ]
+    }
+}
