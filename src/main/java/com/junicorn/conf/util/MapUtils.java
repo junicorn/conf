@@ -7,10 +7,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Liu Yuefei
@@ -59,6 +56,47 @@ public class MapUtils {
                 temFiels.set(object, child);
             } else if (List.class == type) {
                 // TODO
+                // 获取List中泛型的类型,需指定
+                List<Object> srcList = (List<Object>) map.get(key);
+                if (srcList == null || srcList.isEmpty()) {
+                    temFiels.set(object, null);
+                    continue;
+                }
+                String typeFieldName = temFiels.getName() + "Class";
+                Field typeField = cls.getDeclaredField(typeFieldName);
+                Class<?> templateType = typeField.getType();
+                List<Object> targetList = new ArrayList<Object>();
+                if (isBasicType(templateType)) {
+                    Object value = null;
+                    for (Object item : srcList) {
+                        if (int.class == type || Integer.class == type) {
+                            value = Integer.valueOf(item.toString());
+                        } else if (String.class == type) {
+                            value = item.toString();
+                        } else if (boolean.class == type || Boolean.class == type) {
+                            value = Boolean.valueOf(item.toString());
+                        } else if (double.class == type || Double.class == type) {
+                            value = Double.valueOf(item.toString());
+                        } else if (long.class == type || Long.class == type) {
+                            value = Long.valueOf(item.toString());
+                        } else if (float.class == type || Float.class == type) {
+                            value = Float.valueOf(item.toString());
+                        } else if (char.class == type || Character.class == type) {
+                            value = Character.valueOf(item.toString().charAt(0));
+                        } else if (byte.class == type || Byte.class == type) {
+                            value = Byte.valueOf(item.toString());
+                        } else if (short.class == type || Short.class == type) {
+                            value = Short.valueOf(item.toString());
+                        }
+                        targetList.add(value);
+                    }
+                } else {
+                    for (Object item : srcList) {
+                        Object itemValue = mapToBean((Map<String, Object>) item, templateType);
+                        targetList.add(itemValue);
+                    }
+                }
+                temFiels.set(object, targetList);
             } else {
                 Map<String, Object> child = (Map<String, Object>) map.get(key);
                 Object childObj = mapToBean(child, type);
@@ -67,6 +105,7 @@ public class MapUtils {
         }
         return object;
     }
+
 
     private static boolean isBasicType(Class type) {
         if (int.class == type || Integer.class == type) {

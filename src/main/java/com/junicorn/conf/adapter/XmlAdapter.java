@@ -3,6 +3,7 @@ package com.junicorn.conf.adapter;
 import com.junicorn.conf.Config;
 import com.junicorn.conf.exception.ConfigAdapterException;
 import com.junicorn.conf.exception.LoadException;
+import com.junicorn.conf.util.IOUtils;
 import com.junicorn.conf.util.XmlParserUtils;
 import org.xml.sax.SAXException;
 
@@ -36,6 +37,8 @@ public class XmlAdapter extends ConfigAdapter {
             throw new ConfigAdapterException("create parser error!");
         } catch (IOException e) {
             throw new LoadException("load xml file error!");
+        } finally {
+            IOUtils.closeQuietly(in);
         }
         return this;
     }

@@ -11,20 +11,23 @@ import java.util.Map;
  */
 public class XmlConf {
 
-    private Depend[] dependency;
+    private List<Depend> dependency;
 
-    public Depend[] getDependency() {
+    private Depend dependencyClass;
+
+    public List<Depend> getDependency() {
         return dependency;
     }
 
-    public void setDependency(Depend[] dependency) {
+    public void setDependency(List<Depend> dependency) {
         this.dependency = dependency;
     }
+
 
     @Override
     public String toString() {
         return "XmlConf{" +
-                "dependency=" + Arrays.toString(dependency) +
+                "dependency=" + dependency +
                 '}';
     }
 
